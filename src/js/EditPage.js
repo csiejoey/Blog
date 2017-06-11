@@ -1,14 +1,98 @@
 import React, { Component } from 'react';
+import { Link, Prompt } from 'react-router-dom';
 
 class EditPage extends Component {
   constructor() {
     super();
     this.state = {
-
+      titleInput: '',
+      contentInput: '',
+      authorInput: '',
+      inputDirty: false,
+      reply: [],
+      articleId: '',
     };
   }
+  componentDidMount() {
+    const { articleId } = this.props.match.params;
+    fetch(`/api/get-posts/${articleId}`)
+      .then(res => res.json())
+      .then((article) => {
+        this.setState({
+          titleInput: article.title,
+          contentInput: article.content,
+          authorInput: article.author,
+          inputDirty: true,
+          reply: article.reply,
+          articleId: article._id,
+        });
+      })
+      .catch(err => console.error(err));
+  }
+  setInputDirty(e) {
+    const isDirty = !!e.target.value.trim();
+    this.setState({ inputDirty: isDirty });
+  }
+  // if unchanged, compard with db => free to cancel
+  saveArticle() {
+    fetch('/api/edit', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: this.state.titleInput,
+        content: this.state.contentInput,
+        author: this.state.authorInput,
+        time: new Date(),
+        reply: this.state.reply,
+        articleId: this.state.articleId,
+      }),
+    })
+    .then(() => {
+      window.location.href=`http://localhost:3000/article/${this.state.articleId}`;
+    })
+    .catch(err => console.error(err));
+  }
   render() {
-    return <h3>this is EditPage</h3>;
+    return (
+      <div>
+        <h3>this is EditPage</h3>
+        <textarea
+          placeholder="title..."
+          value={this.state.titleInput}
+          onInput={e => this.setInputDirty(e)}
+          onChange={e => this.setState({ titleInput: e.target.value })}
+        />
+        <textarea
+          placeholder="content..."
+          value={this.state.contentInput}
+          onInput={e => this.setInputDirty(e)}
+          onChange={e => this.setState({ contentInput: e.target.value })}
+        />
+        <textarea
+          placeholder="author..."
+          value={this.state.authorInput}
+          onInput={e => this.setInputDirty(e)}
+          onChange={e => this.setState({ authorInput: e.target.value })}
+        />
+        <nav>
+          <Link to="/">
+            <button>
+              Cancel
+            </button>
+          </Link>
+          <button onClick={() => this.saveArticle()}>
+            Save
+          </button>
+          <Prompt
+            when={this.state.inputDirty}
+            message="leaving?"
+          />
+        </nav>
+      </div>
+    );
   }
 }
 

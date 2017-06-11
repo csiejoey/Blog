@@ -42,7 +42,8 @@ router.get('/get-posts/:id', (req, res) => {
     .catch(err => console.error(err));
 });
 
-router.post('/post', (req, res) => {
+router.post('/post', (req) => {
+  console.log('POST/req.body: ', req.body);
   const postObj = {
     title: req.body.title,
     content: req.body.content,
@@ -54,11 +55,25 @@ router.post('/post', (req, res) => {
   newPost.save();
   // res.redirect('/');
 });
+router.post('/edit', (req, res) => {
+  console.log('EDIT/req.body: ', req.body);
+  const editObj = {
+    title: req.body.title,
+    content: req.body.content,
+    author: req.body.author,
+    time: req.body.time,
+    reply: req.body.reply,
+  };
+  const PostId = req.body.articleId;
+  // const newPost = req.body;
+  PostData.findByIdAndUpdate(PostId, editObj)
+    .then(post => res.send(post))
+    .catch(err => console.error(err));
+});
 
-router.post('/rmpost/:articleId', (req, res) => {
-  const articleId = req.params.id;
-  console.log(articleId);
-  PostData.findByIdAndRemove({ _id: articleId })
+router.post('/rmpost/:PostId', (req, res) => {
+  const PostId = req.params.PostId;
+  PostData.findByIdAndRemove(PostId)
     .then(post => res.status(204).send(post))
     .catch(err => console.error(err));
 });

@@ -1,10 +1,9 @@
 import React from 'react';
+import { Link, Prompt } from 'react-router-dom';
 
 function EditInput(props) {
   return (
-    <div>
-      input
-    </div>
+
   );
 }
 

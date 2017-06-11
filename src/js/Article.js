@@ -30,9 +30,6 @@ class Article extends Component {
       })
       .catch(err => console.error(err));
   }
-  editArticle() {
-
-  }
   removeArticle() {
     fetch(`/api/rmpost/${this.state.articleId}`, {
       method: 'post',
@@ -41,7 +38,6 @@ class Article extends Component {
         'Content-Type': 'application/json',
       },
     })
-      // .then(window.location.href=`http://localhost:3000/`)
       .catch(err => console.error(err));
       window.location.href=`http://localhost:3000/`;
   }
@@ -64,7 +60,6 @@ class Article extends Component {
           edit
           </Link>
         </button>
-        {/* <button onClick={() => this.editArticle()}>edit</button> */}
         <button onClick={() => this.removeArticle()}>remove</button>
       </div>
     );

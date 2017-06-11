@@ -15,7 +15,7 @@ class NewPage extends Component {
     const isDirty = !!e.target.value.trim();
     this.setState({ inputDirty: isDirty });
   }
-  fetchArticleId() {
+  fetchArticleIdAndRedirect() {
     fetch('/api/get-posts')
       .then(res => res.json())
       .then((fetchedPosts) => {
@@ -39,12 +39,13 @@ class NewPage extends Component {
         time: new Date(),
       }),
     })
-    .then(this.fetchArticleId())
+    .then(this.fetchArticleIdAndRedirect())
     .catch(err => console.error(err));
   }
   render() {
     return (
       <div>
+        <h3>this is NewPage</h3>
         <textarea
           placeholder="title..."
           value={this.state.titleInput}

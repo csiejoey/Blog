@@ -38,7 +38,8 @@ notice:
 7. npm script: 'eslint .'
 8. why can't i server.use('/test', () => res.json('xxxxxxx');); in server.js ====> don't forget arguments (req, res)
 9. cli copy directory => cp -a /source/. dest
-
+10. router.post('/rmpost/:articleId') & req.params.articleId => naming has to be same
+11. (req, res) don't mess up the ORDER!!!!! first req, second res.
 
 ------------------------------------------------------------------------------
 
@@ -56,28 +57,37 @@ Optional
 
 登入系統
 
-// sendContent() {
-//   fetch('/api/post', {
-//     method: 'post',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       title: 'chigga',
-//       content: 'swag',
-//       author: 'pnc',
-//       time: new Date(),
-//       reply: [{
-//         content: 'beesh',
-//         user: 'gurl',
-//         time: new Date(),
-//       }, {
-//         content: 'dudududu',
-//         user: 'gangsquad',
-//         time: new Date(),
-//       }],
-//     }),
-//   })
-//   .catch(err => console.error(err));
-// }
+<div>
+  <textarea
+    placeholder="title..."
+    value={this.state.titleInput}
+    onInput={e => this.setInputDirty(e)}
+    onChange={e => this.setState({ titleInput: e.target.value })}
+  />
+  <textarea
+    placeholder="content..."
+    value={this.state.contentInput}
+    onInput={e => this.setInputDirty(e)}
+    onChange={e => this.setState({ contentInput: e.target.value })}
+  />
+  <textarea
+    placeholder="author..."
+    value={this.state.authorInput}
+    onInput={e => this.setInputDirty(e)}
+    onChange={e => this.setState({ authorInput: e.target.value })}
+  />
+  <nav>
+    <Link to="/">
+      <button>
+        Cancel
+      </button>
+    </Link>
+    <button onClick={() => this.postArticle()}>
+      Post
+    </button>
+    <Prompt
+      when={this.state.inputDirty}
+      message="leaving?"
+    />
+  </nav>
+</div>
