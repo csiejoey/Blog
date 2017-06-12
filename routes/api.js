@@ -44,29 +44,16 @@ router.get('/get-posts/:id', (req, res) => {
 
 router.post('/post', (req) => {
   console.log('POST/req.body: ', req.body);
-  const postObj = {
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author,
-    time: req.body.time,
-    reply: req.body.reply,
-  };
+  const postObj = req.body;
   const newPost = new PostData(postObj);
   newPost.save();
-  // res.redirect('/');
 });
-router.post('/edit', (req, res) => {
+
+router.post('/edit/:PostId', (req, res) => {
   console.log('EDIT/req.body: ', req.body);
-  const editObj = {
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author,
-    time: req.body.time,
-    reply: req.body.reply,
-  };
-  const PostId = req.body.articleId;
-  // const newPost = req.body;
-  PostData.findByIdAndUpdate(PostId, editObj)
+  const PostId = req.params.PostId;
+  const postObj = req.body;
+  PostData.findByIdAndUpdate(PostId, postObj)
     .then(post => res.send(post))
     .catch(err => console.error(err));
 });
@@ -78,12 +65,13 @@ router.post('/rmpost/:PostId', (req, res) => {
     .catch(err => console.error(err));
 });
 
-router.post('/reply', (req, res) => {
-
-});
-
-router.post('/rmreply', (req, res) => {
-
-});
+// router.post('/rmreply/:PostId/:ReplyId', (req, res) => {
+//   const PostId = req.params.PostId;
+//   const ReplyId = req.params.ReplyId;
+//   // const postObj =
+//   PostData.findByIdAndUpdate(PostId, postObj)
+//     .then(post => res.send(post))
+//     .catch(err => console.error(err));
+// });
 
 module.exports = router;

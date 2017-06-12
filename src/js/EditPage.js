@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Prompt } from 'react-router-dom';
+// import CKEditor from './CKEditor';
 
 class EditPage extends Component {
   constructor() {
@@ -14,6 +15,9 @@ class EditPage extends Component {
     };
   }
   componentDidMount() {
+    CKEDITOR.replace('editor', {
+      skin: 'moono',
+    });
     const { articleId } = this.props.match.params;
     fetch(`/api/get-posts/${articleId}`)
       .then(res => res.json())
@@ -27,7 +31,19 @@ class EditPage extends Component {
           articleId: article._id,
         });
       })
+      .then(() => this.setInputData())
       .catch(err => console.error(err));
+    CKEDITOR.instances.editor.on('change', () => {
+      const data = CKEDITOR.instances.editor.getData();
+      console.log(data);
+      this.setState({
+        contentInput: data,
+      });
+    });
+  }
+  setInputData() {
+    CKEDITOR.instances.editor.setData(this.state.contentInput);
+    // CKEDITOR.instances.editor.setData(this.props.value);
   }
   setInputDirty(e) {
     const isDirty = !!e.target.value.trim();
@@ -35,7 +51,7 @@ class EditPage extends Component {
   }
   // if unchanged, compard with db => free to cancel
   saveArticle() {
-    fetch('/api/edit', {
+    fetch(`/api/edit/${this.state.articleId}`, {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -47,15 +63,15 @@ class EditPage extends Component {
         author: this.state.authorInput,
         time: new Date(),
         reply: this.state.reply,
-        articleId: this.state.articleId,
       }),
     })
     .then(() => {
-      window.location.href=`http://localhost:3000/article/${this.state.articleId}`;
+      window.location.href = `http://localhost:3000/article/${this.state.articleId}`;
     })
     .catch(err => console.error(err));
   }
   render() {
+    const { articleId } = this.props.match.params;
     return (
       <div>
         <h3>this is EditPage</h3>
@@ -66,11 +82,14 @@ class EditPage extends Component {
           onChange={e => this.setState({ titleInput: e.target.value })}
         />
         <textarea
-          placeholder="content..."
-          value={this.state.contentInput}
-          onInput={e => this.setInputDirty(e)}
-          onChange={e => this.setState({ contentInput: e.target.value })}
+          id="editor"
         />
+        {/* <CKEditor
+          value={this.state.contentInput}
+          match={this.props.match}
+          editorInput={e => this.setInputDirty(e)}
+          editorChange={e => this.setState({ contentInput: e })}
+        /> */}
         <textarea
           placeholder="author..."
           value={this.state.authorInput}
@@ -78,7 +97,7 @@ class EditPage extends Component {
           onChange={e => this.setState({ authorInput: e.target.value })}
         />
         <nav>
-          <Link to="/">
+          <Link to={`/article/${articleId}`}>
             <button>
               Cancel
             </button>

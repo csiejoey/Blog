@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 
 class Reply extends Component {
-  removeReply() {
-
-  }
   controlBtn() {
     return (
       <div>
-        <button onClick={() => this.editReply()}>edit</button>
-        <button onClick={() => this.removeReply()}>remove</button>
+        {/* <button onClick={() => this.editReply(this.props.id)}>edit</button> */}
+        <button onClick={() => this.props.removeReply(this.props.id)}>remove</button>
       </div>
     );
   }

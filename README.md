@@ -2,7 +2,7 @@
 
 ## ａｕｔｈｏｒ：ｊｏｅｙ　ｈｕａｎｇ
 
-blog 2: without using create-react-app
+A commentable blog.
 
 practice:
 1. material ui
@@ -13,13 +13,20 @@ practice:
 6. (testing)
 7. uglify(webpack)
 8. loading(transition)
+9. CKEditor       v
+
+## try CKEditor's HTMLPARSER!
+## simplify CKEditor
 
 problem faced:
-
+1. const parsedContent = this.state.content.replace(/\r?\n/g, '<br />');
 2. different tables?
 3. how to save reply? foreign key?
-4. ejs's index.html?
+4. fetch vs isomorphic fetch
 5. mongoose.Promise = global.Promise; ?
+6. production v.s. test?
+7. CKEditor: how to fix photo-upload & table
+8. console.log(this.props.value) twice? the first time is undefined? why cant i pass as props?
 
 problem solved:
 1. create-react-app watch automatically
@@ -40,54 +47,25 @@ notice:
 9. cli copy directory => cp -a /source/. dest
 10. router.post('/rmpost/:articleId') & req.params.articleId => naming has to be same
 11. (req, res) don't mess up the ORDER!!!!! first req, second res.
+12. must CONNECT TO INTERNET while using CDN....
+13. after CKEditor => notice the parsed data => no need to e.target.value
+14. don't parsedhtml while saving to db, it will cause multi <br /> everytime edited.
+15. don't reverse array everytime rendered
+16. don't setState while posting => it will cause refresh(render)
+17. notice the correctness of redirect url!
 
 ------------------------------------------------------------------------------
 
 Requirement
 
-需連接 database（種類不限）
-需實現所見及所得編輯
-實作 Restful API
+v 需連接 database（種類不限）
+v 需實現所見及所得編輯
+v 實作 Restful API
 UI
 
 發文頁面
-文章總欄頁面（advance: 分頁）
-單一文章頁面（advance: 留言功能）
+v 文章總欄頁面（advance: 分頁）
+v 單一文章頁面（advance: 留言功能）
 Optional
 
 登入系統
-
-<div>
-  <textarea
-    placeholder="title..."
-    value={this.state.titleInput}
-    onInput={e => this.setInputDirty(e)}
-    onChange={e => this.setState({ titleInput: e.target.value })}
-  />
-  <textarea
-    placeholder="content..."
-    value={this.state.contentInput}
-    onInput={e => this.setInputDirty(e)}
-    onChange={e => this.setState({ contentInput: e.target.value })}
-  />
-  <textarea
-    placeholder="author..."
-    value={this.state.authorInput}
-    onInput={e => this.setInputDirty(e)}
-    onChange={e => this.setState({ authorInput: e.target.value })}
-  />
-  <nav>
-    <Link to="/">
-      <button>
-        Cancel
-      </button>
-    </Link>
-    <button onClick={() => this.postArticle()}>
-      Post
-    </button>
-    <Prompt
-      when={this.state.inputDirty}
-      message="leaving?"
-    />
-  </nav>
-</div>

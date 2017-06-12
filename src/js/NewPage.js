@@ -11,6 +11,21 @@ class NewPage extends Component {
       inputDirty: false,
     };
   }
+  componentDidMount() {
+    CKEDITOR.replace('editor', {
+      skin: 'moono',
+    });
+    CKEDITOR.instances.editor.on('change', () => {
+      const data = CKEDITOR.instances.editor.getData();
+      console.log(data);
+      this.setState({
+        contentInput: data,
+      });
+    });
+  }
+  setInputData() {
+    CKEDITOR.instances.editor.setData(this.state.contentInput);
+  }
   setInputDirty(e) {
     const isDirty = !!e.target.value.trim();
     this.setState({ inputDirty: isDirty });
@@ -21,7 +36,7 @@ class NewPage extends Component {
       .then((fetchedPosts) => {
         const newestId = fetchedPosts.reverse()[0]._id;
         // must change url after deploy!
-        window.location.href=`http://localhost:3000/article/${newestId}`;
+        window.location.href = `http://localhost:3000/article/${newestId}`;
       })
       .catch(err => console.error(err));
   }
@@ -53,11 +68,13 @@ class NewPage extends Component {
           onChange={e => this.setState({ titleInput: e.target.value })}
         />
         <textarea
-          placeholder="content..."
-          value={this.state.ContentInput}
-          onInput={e => this.setInputDirty(e)}
-          onChange={e => this.setState({ contentInput: e.target.value })}
+          id="editor"
         />
+        {/* <CKEditor
+          defaultValue={this.state.contentInput}
+          editorInput={e => this.setInputDirty(e)}
+          editorChange={e => this.setState({ contentInput: e })}
+        /> */}
         <textarea
           placeholder="author..."
           value={this.state.authorInput}
