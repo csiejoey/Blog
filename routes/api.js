@@ -65,13 +65,4 @@ router.post('/rmpost/:PostId', (req, res) => {
     .catch(err => console.error(err));
 });
 
-// router.post('/rmreply/:PostId/:ReplyId', (req, res) => {
-//   const PostId = req.params.PostId;
-//   const ReplyId = req.params.ReplyId;
-//   // const postObj =
-//   PostData.findByIdAndUpdate(PostId, postObj)
-//     .then(post => res.send(post))
-//     .catch(err => console.error(err));
-// });
-
 module.exports = router;

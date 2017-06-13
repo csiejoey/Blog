@@ -1,11 +1,13 @@
+// not used
 import React, { Component } from 'react';
+import BlogPage from './js/BlogPage';
 
-class Header extends Component {
+class FBLogin extends Component {
   constructor() {
     super();
     this.state = {
       loggedIn: false,
-      name: 'anonymous',
+      name: '',
     };
   }
   componentDidMount() {
@@ -28,23 +30,24 @@ class Header extends Component {
     }(document, 'script', 'facebook-jssdk'));
   }
   setName() {
-    window.FB.api('/me', { fields: 'name' }, (res) => {
+    window.FB.api('/me', (res) => {
       this.setState({
         loggedIn: true,
         name: res.name,
       });
     });
   }
+  // this.props.setState?
   setAnonymous() {
     this.setState({
       loggedIn: false,
       name: 'anonymous',
     });
   }
-  statusChangeCallback = (response) => {
+  statusChangeCallback(res) {
     console.log('statusChangeCallback');
-    console.log(response);
-    if (response.status === 'connected') {
+    console.log(res);
+    if (res.status === 'connected') {
       this.setName();
     } else {
       this.setAnonymous();
@@ -56,16 +59,15 @@ class Header extends Component {
     });
   }
   loginBtn() {
-    if (this.state.loggedIn === false) {
+    if (this.state.login === false) {
       return (
         <div
-          className="fb-login-button"
+          class="fb-login-button"
           data-size="medium"
           data-button-type="login_with"
           data-show-faces="false"
-          data-auto-logout-link="false"
-          data-use-continue-as="true"
-        />
+          data-auto-logout-link="true"
+          data-use-continue-as="true" />
       );
     } else {
       return (
@@ -76,18 +78,11 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <h1>CKDCGOOD</h1>
         {this.loginBtn()}
-        <a href="http://localhost:3000/">
-          back to home
-        </a>
-        <br />
-        <a href="http://localhost:3000/article/new">
-          post new article
-        </a>
+        <BlogPage />
       </div>
     );
   }
 }
 
-export default Header;
+export default FBLogin;

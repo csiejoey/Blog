@@ -32,9 +32,6 @@ class Article extends Component {
           articleId: article._id,
         });
       })
-      .then(() => this.setState({
-        replyLen: this.state.reply.length,
-      }))
       .catch(err => console.error(err));
   }
   removeArticle() {
@@ -92,11 +89,15 @@ class Article extends Component {
   postReply() {
     const { title, content, author, reply, articleId, replyUserInput, replyContentInput }
       = this.state;
+    const time = new Date();
     const newReply = {
       user: replyUserInput,
       content: replyContentInput,
-      time: new Date(),
+      time,
     };
+    const r = reply.concat(newReply);
+    // console.log(r);
+    // reply.push(newReply);
     fetch(`/api/edit/${articleId}`, {
       method: 'post',
       headers: {
@@ -108,9 +109,16 @@ class Article extends Component {
         content,
         author,
         time: new Date(),
-        reply: reply.concat(newReply),
+        reply: r,
       }),
     })
+    .then('replyarr', console.log(r))
+    // why can't i rerender replyArray?
+    // .then(this.setState({
+    //   replyUserInput: '',
+    //   replyContentInput: '',
+    //   reply: reply.concat(newReply),
+    // }))
     .then(() => {
       window.location.href = `http://localhost:3000/article/${articleId}`;
     })
@@ -118,7 +126,7 @@ class Article extends Component {
   }
   removeReply(replyId) {
     const rmReply = confirm('remove?');
-    const { articleId, title, content, author, reply } = this.state;
+    const { articleId, title, content, time, author, reply } = this.state;
     reply.splice(replyId, 1);
     if (rmReply) {
       fetch(`/api/edit/${articleId}`, {
@@ -131,13 +139,13 @@ class Article extends Component {
           title,
           content,
           author,
-          time: new Date(),
+          time,
           reply,
         }),
       })
-        .then(() => {
-          window.location.href = `http://localhost:3000/article/${articleId}`;
-        })
+        .then(this.setState({
+          reply,
+        }))
         .catch(err => console.error(err));
     }
     event.preventDefault();
@@ -152,7 +160,7 @@ class Article extends Component {
         {replyArr.map((x, i) => (
           <Reply
             id={i}
-            key={`${x._id}`}
+            key={`replyId-${x._id}`}
             replyBody={x}
             // editReply={}
             removeReply={replyId => this.removeReply(replyId)}

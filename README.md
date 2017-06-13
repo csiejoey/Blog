@@ -17,11 +17,15 @@ practice:
 
 ## try CKEditor's HTMLPARSER!
 ## simplify CKEditor
+## Reply WYSIWYG
+## Switch facebook app from development mode
 
 problem faced:
 1. const parsedContent = this.state.content.replace(/\r?\n/g, '<br />');
-2. different tables?
-3. how to save reply? foreign key?
+2. why can't i rerender reply array?
+3. difference between
+  boo(res) { console.log(res) }
+  boo = (res) => { console.log(res) }
 4. fetch vs isomorphic fetch
 5. mongoose.Promise = global.Promise; ?
 6. production v.s. test?
@@ -34,6 +38,7 @@ problem solved:
 3. kill the occupied port 'lsof -i tcp:3000' || delete cache in devtool-> application cache storage
 4. 'import': webpack reads babelrc -> transpile -> output bundle.js to 'static' folder in middleware(virtual folder)(publicPath) -> include script in index.html
 5. mac/data/db/mongodb-osx..... => ./mongod (this is the server, and ./mongo is the client)
+6. use state change instead of redirect to post and remove reply.
 
 notice:
 1. module.exports = server;
@@ -53,6 +58,7 @@ notice:
 15. don't reverse array everytime rendered
 16. don't setState while posting => it will cause refresh(render)
 17. notice the correctness of redirect url!
+18. The concat() method is used to merge two or more arrays. This method does not change the existing arrays, but instead returns a new array.
 
 ------------------------------------------------------------------------------
 
