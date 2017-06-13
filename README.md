@@ -7,18 +7,18 @@ A commentable blog.
 practice:
 1. material ui
 2. fb.login
-3. mongo/mongoose v
-4. react-router   v
+3. mongo/mongoose   v
+4. react-router     v
 5. favicon
 6. (testing)
-7. uglify(webpack)
+7. uglify(webpack)  v
 8. loading(transition)
-9. CKEditor       v
+9. CKEditor         v
 
 ## try CKEditor's HTMLPARSER!
 ## simplify CKEditor
-## Reply WYSIWYG
 ## Switch facebook app from development mode
+## https://github.com/coryhouse/react-slingshot/issues/128
 
 problem faced:
 1. const parsedContent = this.state.content.replace(/\r?\n/g, '<br />');
@@ -31,6 +31,7 @@ problem faced:
 6. production v.s. test?
 7. CKEditor: how to fix photo-upload & table
 8. console.log(this.props.value) twice? the first time is undefined? why cant i pass as props?
+9. automatically logout?
 
 problem solved:
 1. create-react-app watch automatically
@@ -39,6 +40,9 @@ problem solved:
 4. 'import': webpack reads babelrc -> transpile -> output bundle.js to 'static' folder in middleware(virtual folder)(publicPath) -> include script in index.html
 5. mac/data/db/mongodb-osx..... => ./mongod (this is the server, and ./mongo is the client)
 6. use state change instead of redirect to post and remove reply.
+7. react router 4 pass props: use render method
+  MyHomePage = () => <HomePage name={this.state.name} />
+  <Route exact path="/" render={this.MyHomePage} />
 
 notice:
 1. module.exports = server;

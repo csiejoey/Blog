@@ -9,6 +9,8 @@ class HomePage extends Component {
     };
   }
   componentDidMount() {
+    // const getAccessToken = localStorage.getItem('accessToken');
+    // console.log(getAccessToken);
     fetch('/api/get-posts')
       .then(res => res.json())
       .then((fetchedPosts) => {

@@ -19,7 +19,12 @@ class Article extends Component {
     };
   }
   componentDidMount() {
-    const { articleId } = this.props.match.params;
+    // const getAccessToken = localStorage.getItem('accessToken');
+    // console.log(getAccessToken);
+    const pathname = window.location.pathname;
+    const articleId = pathname.slice(9);
+    console.log(articleId);
+    // const { articleId } = this.props.match.params;
     fetch(`/api/get-posts/${articleId}`)
       .then(res => res.json())
       .then((article) => {

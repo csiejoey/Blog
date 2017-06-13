@@ -1,62 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import NewPage from './NewPage';
+import HomePage from './HomePage';
 
 class Header extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loggedIn: false,
-      name: 'anonymous',
-    };
-  }
-  componentDidMount() {
-    window.fbAsyncInit = () => {
-      window.FB.init({
-        appId: '330684807331906',
-        cookie: true,
-        xfbml: true,
-        version: 'v2.9',
-      });
-      window.FB.AppEvents.logPageView();
-      window.FB.Event.subscribe('auth.statusChange', this.statusChangeCallback);
-    };
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  }
-  setName() {
-    window.FB.api('/me', { fields: 'name' }, (res) => {
-      this.setState({
-        loggedIn: true,
-        name: res.name,
-      });
-    });
-  }
-  setAnonymous() {
-    this.setState({
-      loggedIn: false,
-      name: 'anonymous',
-    });
-  }
-  statusChangeCallback = (response) => {
-    console.log('statusChangeCallback');
-    console.log(response);
-    if (response.status === 'connected') {
-      this.setName();
-    } else {
-      this.setAnonymous();
-    }
-  }
-  checkLoginState() {
-    window.FB.getLoginStatus((res) => {
-      this.statusChangeCallback(res);
-    });
-  }
   loginBtn() {
-    if (this.state.loggedIn === false) {
+    if (this.props.loggedIn === false) {
       return (
         <div
           className="fb-login-button"
@@ -69,15 +18,26 @@ class Header extends Component {
       );
     } else {
       return (
-        <div>{this.state.name}</div>
+        <div>{this.props.name}</div>
       );
     }
   }
+  MyNewPage = () => <NewPage name={this.props.name} />
+  MyHomePage = () => <HomePage name={this.props.name} />
   render() {
     return (
       <div>
         <h1>CKDCGOOD</h1>
         {this.loginBtn()}
+        {/* <BrowserRouter>
+          <nav>
+            <Link to="/">Home</Link>
+            <br />
+            <Link to="/article/new">New</Link>
+            <Route exact path="/" />
+            <Route path="/article/new" />
+          </nav>
+        </BrowserRouter> */}
         <a href="http://localhost:3000/">
           back to home
         </a>

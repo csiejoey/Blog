@@ -7,11 +7,12 @@ class NewPage extends Component {
     this.state = {
       titleInput: '',
       contentInput: '',
-      authorInput: '',
       inputDirty: false,
     };
   }
   componentDidMount() {
+    // const getAccessToken = localStorage.getItem('accessToken');
+    // console.log(getAccessToken);
     CKEDITOR.replace('editor', {
       skin: 'moono',
     });
@@ -41,6 +42,10 @@ class NewPage extends Component {
       .catch(err => console.error(err));
   }
   postArticle() {
+    if (!this.state.inputDirty) {
+      alert('title cant be blank');
+      return;
+    }
     fetch('/api/post', {
       method: 'post',
       headers: {
@@ -50,7 +55,7 @@ class NewPage extends Component {
       body: JSON.stringify({
         title: this.state.titleInput,
         content: this.state.contentInput,
-        author: this.state.authorInput,
+        author: this.props.name,
         time: new Date(),
       }),
     })
@@ -75,12 +80,12 @@ class NewPage extends Component {
           editorInput={e => this.setInputDirty(e)}
           editorChange={e => this.setState({ contentInput: e })}
         /> */}
-        <textarea
+        {/* <textarea
           placeholder="author..."
           value={this.state.authorInput}
           onInput={e => this.setInputDirty(e)}
           onChange={e => this.setState({ authorInput: e.target.value })}
-        />
+        /> */}
         <nav>
           <Link to="/">
             <button>

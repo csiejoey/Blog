@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 
 class Reply extends Component {
   controlBtn() {
@@ -10,9 +11,11 @@ class Reply extends Component {
     );
   }
   render() {
+    const replaceBreak = this.props.replyBody.content.replace(/\r?\n/g, '<br />');
+    const replaceBlank = replaceBreak.replace(/&nbsp;/g, ' ');
     return (
       <div>
-        <h4>{this.props.replyBody.content}</h4>
+        <h4>{ReactHtmlParser(replaceBlank)}</h4>
         <h3>{this.props.replyBody.user}--{this.props.replyBody.time}</h3>
         {this.controlBtn()}
       </div>

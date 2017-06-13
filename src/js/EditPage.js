@@ -18,7 +18,10 @@ class EditPage extends Component {
     CKEDITOR.replace('editor', {
       skin: 'moono',
     });
-    const { articleId } = this.props.match.params;
+    const pathname = window.location.pathname;
+    const articleId = pathname.slice(14);
+    console.log(articleId);
+    // const { articleId } = this.props.match.params;
     fetch(`/api/get-posts/${articleId}`)
       .then(res => res.json())
       .then((article) => {
@@ -71,7 +74,10 @@ class EditPage extends Component {
     .catch(err => console.error(err));
   }
   render() {
-    const { articleId } = this.props.match.params;
+    const pathname = window.location.pathname;
+    const articleId = pathname.slice(14);
+    console.log(articleId);
+    // const { articleId } = this.props.match.params;
     return (
       <div>
         <h3>this is EditPage</h3>
@@ -90,12 +96,12 @@ class EditPage extends Component {
           editorInput={e => this.setInputDirty(e)}
           editorChange={e => this.setState({ contentInput: e })}
         /> */}
-        <textarea
+        {/* <textarea
           placeholder="author..."
           value={this.state.authorInput}
           onInput={e => this.setInputDirty(e)}
           onChange={e => this.setState({ authorInput: e.target.value })}
-        />
+        /> */}
         <nav>
           <Link to={`/article/${articleId}`}>
             <button>
