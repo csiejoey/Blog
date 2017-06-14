@@ -1,0 +1,15 @@
+.article {
+  padding: 0 0 35px 35px;
+}
+
+.title {
+  display: flex;
+}
+
+.iconMenu {
+  padding: 10px 0 0 15px;
+}
+
+.replyInput {
+  padding-left: 20px;
+}

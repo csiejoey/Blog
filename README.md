@@ -5,20 +5,18 @@
 A commentable blog.
 
 practice:
-1. material ui
+1. material ui      v
 2. fb.login
 3. mongo/mongoose   v
 4. react-router     v
-5. favicon
+5. favicon          v
 6. (testing)
 7. uglify(webpack)  v
 8. loading(transition)
 9. CKEditor         v
 
-## try CKEditor's HTMLPARSER!
-## simplify CKEditor
+## try CKEditor's HTMLPARSER! (next time => try react-rte)
 ## Switch facebook app from development mode
-## https://github.com/coryhouse/react-slingshot/issues/128
 
 problem faced:
 1. const parsedContent = this.state.content.replace(/\r?\n/g, '<br />');
@@ -43,6 +41,7 @@ problem solved:
 7. react router 4 pass props: use render method
   MyHomePage = () => <HomePage name={this.state.name} />
   <Route exact path="/" render={this.MyHomePage} />
+8. favicon path: find the path of middleware directory
 
 notice:
 1. module.exports = server;
@@ -65,6 +64,8 @@ notice:
 18. The concat() method is used to merge two or more arrays. This method does not change the existing arrays, but instead returns a new array.
 
 ------------------------------------------------------------------------------
+
+mlab username: csiejoey, bloguri
 
 Requirement
 

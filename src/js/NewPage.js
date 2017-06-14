@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Prompt } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import './../css/Edit.css';
 
 class NewPage extends Component {
   constructor() {
@@ -14,7 +17,7 @@ class NewPage extends Component {
     // const getAccessToken = localStorage.getItem('accessToken');
     // console.log(getAccessToken);
     CKEDITOR.replace('editor', {
-      skin: 'moono',
+      uiColor: '#FFFFFF'
     });
     CKEDITOR.instances.editor.on('change', () => {
       const data = CKEDITOR.instances.editor.getData();
@@ -37,7 +40,7 @@ class NewPage extends Component {
       .then((fetchedPosts) => {
         const newestId = fetchedPosts.reverse()[0]._id;
         // must change url after deploy!
-        window.location.href = `http://localhost:3000/article/${newestId}`;
+        window.location.href = `https://joeyyee-blog.herokuapp.com/article/${newestId}`;
       })
       .catch(err => console.error(err));
   }
@@ -65,9 +68,9 @@ class NewPage extends Component {
   render() {
     return (
       <div>
-        <h3>this is NewPage</h3>
-        <textarea
-          placeholder="title..."
+        <TextField
+          floatingLabelText="ｔｉｔｌｅ..."
+          className="textField"
           value={this.state.titleInput}
           onInput={e => this.setInputDirty(e)}
           onChange={e => this.setState({ titleInput: e.target.value })}
@@ -80,26 +83,22 @@ class NewPage extends Component {
           editorInput={e => this.setInputDirty(e)}
           editorChange={e => this.setState({ contentInput: e })}
         /> */}
-        {/* <textarea
-          placeholder="author..."
-          value={this.state.authorInput}
-          onInput={e => this.setInputDirty(e)}
-          onChange={e => this.setState({ authorInput: e.target.value })}
-        /> */}
-        <nav>
+        <div className="btn">
           <Link to="/">
-            <button>
-              Cancel
-            </button>
+            <RaisedButton
+              className="cancelBtn"
+              label="ｃａｎｃｅｌ"
+            />
           </Link>
-          <button onClick={() => this.postArticle()}>
-            Post
-          </button>
+          <RaisedButton
+            label="ｐｏｓｔ"
+            onClick={() => this.postArticle()}
+          />
           <Prompt
             when={this.state.inputDirty}
-            message="leaving?"
+            message="ｌｅａｖｉｎｇ？"
           />
-        </nav>
+        </div>
       </div>
     );
   }

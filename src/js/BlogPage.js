@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from './Header';
 import Footer from './Footer';
 import HomePage from './HomePage';
 import Article from './Article';
 import EditPage from './EditPage';
 import NewPage from './NewPage';
+
+injectTapEventPlugin();
 
 class BlogPage extends Component {
   constructor() {

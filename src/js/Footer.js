@@ -1,9 +1,11 @@
 import React from 'react';
+import './../css/Footer.css';
 
 function Footer() {
   return (
-    <div>
-      <h4>2017, all rights reserved, cool-guy.</h4>
+    <div className="footer">
+      <hr />
+      <h4>２０８＋９，ａｌｌ　ｒｉｇｈｔｓ　ｒｅｓｅｒｖｅｄ，ｃｏａｃｈｅｒｓ．ｃｓｓ .</h4>
     </div>
   );
 }

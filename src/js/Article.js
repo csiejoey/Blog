@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import MenuItem from 'material-ui/MenuItem';
 import Reply from './Reply';
 import ReplyInput from './ReplyInput';
+import './../css/Article.css';
 
 class Article extends Component {
   constructor() {
@@ -49,7 +54,7 @@ class Article extends Component {
           'Content-Type': 'application/json',
         },
       })
-        .then(window.location.href = 'http://localhost:3000/')
+        .then(window.location.href = 'https://joeyyee-blog.herokuapp.com/')
         .catch(err => console.error(err));
     }
     event.preventDefault();
@@ -59,25 +64,28 @@ class Article extends Component {
     const replaceBlank = replaceBreak.replace(/&nbsp;/g, ' ');
     return (
       <div>
-        <h2>{this.state.title}</h2>
+        <div className="title">
+          <h2>{this.state.title}</h2>
+          <IconMenu
+            className="iconMenu"
+            iconButtonElement={
+              <IconButton touch={true}>
+                <NavigationExpandMoreIcon />
+              </IconButton>}
+          >
+            <Link to={`/article/edit/${this.state.articleId}`}>
+              <MenuItem primaryText="ｅｄｉｔ" />
+            </Link>
+            <MenuItem
+              primaryText="ｒｅｍｏｖｅ"
+              onClick={() => this.removeArticle()}
+            />
+          </IconMenu>
+        </div>
         <hr />
         <div>{ReactHtmlParser(replaceBlank)}</div>
+        <h4>{this.state.author} -- {this.state.time}</h4>
         <hr />
-        <h3>{this.state.author}-{this.state.time}</h3>
-      </div>
-    );
-  }
-  controlBtn() {
-    return (
-      <div>
-        <button>
-          <Link to={`/article/edit/${this.state.articleId}`}>
-          edit
-          </Link>
-        </button>
-        <button onClick={() => this.removeArticle()}>
-          remove
-        </button>
       </div>
     );
   }
@@ -125,12 +133,12 @@ class Article extends Component {
     //   reply: reply.concat(newReply),
     // }))
     .then(() => {
-      window.location.href = `http://localhost:3000/article/${articleId}`;
+      window.location.href = `https://joeyyee-blog.herokuapp.com/article/${articleId}`;
     })
     .catch(err => console.error(err));
   }
   removeReply(replyId) {
-    const rmReply = confirm('remove?');
+    const rmReply = confirm('ｒｅｍｏｖｅ？');
     const { articleId, title, content, time, author, reply } = this.state;
     reply.splice(replyId, 1);
     if (rmReply) {
@@ -159,25 +167,25 @@ class Article extends Component {
     const replyArr = this.state.reply.reverse();
     this.state.reply.reverse();
     return (
-      <div>
+      <div className="article">
         {this.article()}
-        {this.controlBtn()}
         {replyArr.map((x, i) => (
           <Reply
             id={i}
             key={`replyId-${x._id}`}
             replyBody={x}
-            // editReply={}
             removeReply={replyId => this.removeReply(replyId)}
           />),
         )}
-        <ReplyInput
-          user={this.state.replyUserInput}
-          content={this.state.replyContentInput}
-          editReplyUser={replyUserInput => this.editReplyUser(replyUserInput)}
-          editReplyContent={replyContentInput => this.editReplyContent(replyContentInput)}
-          postReply={() => this.postReply()}
-        />
+        <div className="replyInput">
+          <ReplyInput
+            user={this.state.replyUserInput}
+            content={this.state.replyContentInput}
+            editReplyUser={replyUserInput => this.editReplyUser(replyUserInput)}
+            editReplyContent={replyContentInput => this.editReplyContent(replyContentInput)}
+            postReply={() => this.postReply()}
+          />
+        </div>
       </div>
     );
   }

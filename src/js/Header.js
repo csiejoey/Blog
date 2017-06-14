@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ContentCreate from 'material-ui/svg-icons/content/create';
 import NewPage from './NewPage';
 import HomePage from './HomePage';
+import logo from './../../public/b.svg';
+import './../css/Header.css';
 
 class Header extends Component {
   loginBtn() {
@@ -27,8 +32,31 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <h1>CKDCGOOD</h1>
-        {this.loginBtn()}
+        <div className="nav">
+          <div className="leftBtn">
+            <img
+              src={logo}
+              alt="b"
+            />
+            <h1>ｅ　ａ　ｇｏｏｄ　ｍａｎ，老爸都唸</h1>
+          </div>
+          <div className="rightBtn">
+            <div className="svgBtn">
+              <IconButton tooltip="ｈｏｍｉｅｐａｇｅ">
+                <a href="https://joeyyee-blog.herokuapp.com/">
+                  <ActionHome />
+                </a>
+              </IconButton>
+              <IconButton tooltip="ｎｅｗ　ｓｈｙｔ">
+                <a href="https://joeyyee-blog.herokuapp.com/article/new">
+                  <ContentCreate />
+                </a>
+              </IconButton>
+            </div>
+            {this.loginBtn()}
+          </div>
+        </div>
+        <hr />
         {/* <BrowserRouter>
           <nav>
             <Link to="/">Home</Link>
@@ -38,13 +66,6 @@ class Header extends Component {
             <Route path="/article/new" />
           </nav>
         </BrowserRouter> */}
-        <a href="http://localhost:3000/">
-          back to home
-        </a>
-        <br />
-        <a href="http://localhost:3000/article/new">
-          post new article
-        </a>
       </div>
     );
   }

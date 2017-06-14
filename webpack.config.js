@@ -14,12 +14,12 @@ module.exports = {
         NODE_ENV: JSON.stringify('development'),
       },
     }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     screw_ie8: true,
-    //     warnings: false,
-    //   },
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        screw_ie8: true,
+        warnings: false,
+      },
+    }),
   ],
   module: {
     loaders: [
@@ -31,6 +31,14 @@ module.exports = {
       {
         test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
         loader: 'file-loader?name=[name].[ext]',
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,

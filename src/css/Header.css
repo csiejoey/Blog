@@ -1,0 +1,30 @@
+.nav {
+  position: relative;
+  display: flex;
+  padding-top: 15px;
+  /*border: 1px solid blue;*/
+}
+
+.rightBtn {
+  position: absolute;
+  display: flex;
+  right: 15px;
+  /*border: 1px solid red;*/
+}
+
+.svgBtn {
+  padding-right: 5px;
+}
+
+img {
+  width: 80px;
+  padding-left: 15px;
+}
+
+h1 {
+  padding-left: 38px;
+}
+
+.fb-login-button {
+  padding-top: 10px;
+}

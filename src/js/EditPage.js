@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Prompt } from 'react-router-dom';
-// import CKEditor from './CKEditor';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import './../css/Edit.css';
 
 class EditPage extends Component {
   constructor() {
@@ -16,7 +18,7 @@ class EditPage extends Component {
   }
   componentDidMount() {
     CKEDITOR.replace('editor', {
-      skin: 'moono',
+      uiColor: '#FFFFFF'
     });
     const pathname = window.location.pathname;
     const articleId = pathname.slice(14);
@@ -69,7 +71,7 @@ class EditPage extends Component {
       }),
     })
     .then(() => {
-      window.location.href = `http://localhost:3000/article/${this.state.articleId}`;
+      window.location.href = `https://joeyyee-blog.herokuapp.com/article/${this.state.articleId}`;
     })
     .catch(err => console.error(err));
   }
@@ -80,13 +82,14 @@ class EditPage extends Component {
     // const { articleId } = this.props.match.params;
     return (
       <div>
-        <h3>this is EditPage</h3>
-        <textarea
-          placeholder="title..."
+        <TextField
+          className="textField"
+          floatingLabelText="ｔｉｔｌｅ..."
           value={this.state.titleInput}
           onInput={e => this.setInputDirty(e)}
           onChange={e => this.setState({ titleInput: e.target.value })}
         />
+        <br />
         <textarea
           id="editor"
         />
@@ -96,26 +99,22 @@ class EditPage extends Component {
           editorInput={e => this.setInputDirty(e)}
           editorChange={e => this.setState({ contentInput: e })}
         /> */}
-        {/* <textarea
-          placeholder="author..."
-          value={this.state.authorInput}
-          onInput={e => this.setInputDirty(e)}
-          onChange={e => this.setState({ authorInput: e.target.value })}
-        /> */}
-        <nav>
+        <div className="btn">
           <Link to={`/article/${articleId}`}>
-            <button>
-              Cancel
-            </button>
+            <RaisedButton
+              className="cancelBtn"
+              label="ｃａｎｃｅｌ"
+            />
           </Link>
-          <button onClick={() => this.saveArticle()}>
-            Save
-          </button>
+          <RaisedButton
+            label="ｓａｖｅ"
+            onClick={() => this.saveArticle()}
+          />
           <Prompt
             when={this.state.inputDirty}
-            message="leaving?"
+            message="ｌｅａｖｉｎｇ？"
           />
-        </nav>
+        </div>
       </div>
     );
   }
