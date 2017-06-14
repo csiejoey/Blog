@@ -4,7 +4,9 @@
 
 A commentable blog.
 
-## usage: must login in "POSTING" page, for i have unfixed bug, sorry. 一定要在「發文」的頁面，臉書登入，發文，才會成功，因為我有ｂｕｇ，抱歉。
+## usage:
+## to have author name, you must login in "POSTING" page, for i have unfixed bug, sorry.
+## 一定要在「發文」的頁面，臉書登入，發文，才會有名字，因為我有ｂｕｇ，抱歉。
 
 practice:
 1. material ui      v
