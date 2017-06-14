@@ -62,6 +62,8 @@ notice:
 16. don't setState while posting => it will cause refresh(render)
 17. notice the correctness of redirect url!
 18. The concat() method is used to merge two or more arrays. This method does not change the existing arrays, but instead returns a new array.
+19. i -S everything...
+20. babel-cli must be add to use babel-node 
 
 ------------------------------------------------------------------------------
 
