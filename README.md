@@ -4,6 +4,8 @@
 
 A commentable blog.
 
+## usage: must login in "POSTING" page, for i have unfixed bug, sorry. 一定要在「發文」的頁面，臉書登入，發文，才會成功，因為我有ｂｕｇ，抱歉。
+
 practice:
 1. material ui      v
 2. fb.login
@@ -63,7 +65,7 @@ notice:
 17. notice the correctness of redirect url!
 18. The concat() method is used to merge two or more arrays. This method does not change the existing arrays, but instead returns a new array.
 19. i -S everything...
-20. babel-cli must be add to use babel-node 
+20. babel-cli must be add to use babel-node
 
 ------------------------------------------------------------------------------
 
