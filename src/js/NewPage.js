@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Prompt } from 'react-router-dom';
+import 'babel-polyfill';
+import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import './../css/Edit.css';
@@ -39,14 +41,13 @@ class NewPage extends Component {
       .then(res => res.json())
       .then((fetchedPosts) => {
         const newestId = fetchedPosts.reverse()[0]._id;
-        // must change url after deploy!
         window.location.href = `https://joeyyee-blog.herokuapp.com/article/${newestId}`;
       })
       .catch(err => console.error(err));
   }
   postArticle() {
     if (!this.state.inputDirty) {
-      alert('title cant be blank');
+      alert('title can\'t be blank');
       return;
     }
     fetch('/api/post', {

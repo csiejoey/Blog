@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Prompt } from 'react-router-dom';
+import 'babel-polyfill';
+import fetch from 'isomorphic-fetch';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import './../css/Edit.css';
@@ -56,6 +58,10 @@ class EditPage extends Component {
   }
   // if unchanged, compard with db => free to cancel
   saveArticle() {
+    if (!this.state.inputDirty) {
+      alert('title can\'t be blank');
+      return;
+    }
     fetch(`/api/edit/${this.state.articleId}`, {
       method: 'post',
       headers: {
@@ -66,7 +72,7 @@ class EditPage extends Component {
         title: this.state.titleInput,
         content: this.state.contentInput,
         author: this.state.authorInput,
-        time: new Date(),
+        // time: new Date(),
         reply: this.state.reply,
       }),
     })

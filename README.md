@@ -19,8 +19,7 @@ practice:
 8. loading(transition)
 9. CKEditor         v
 
-## try CKEditor's HTMLPARSER! (next time => try react-rte)
-## Switch facebook app from development mode
+## try CKEditor's HTMLPARSER (next time => try react-rte)
 
 problem faced:
 1. const parsedContent = this.state.content.replace(/\r?\n/g, '<br />');
@@ -34,6 +33,7 @@ problem faced:
 7. CKEditor: how to fix photo-upload & table
 8. console.log(this.props.value) twice? the first time is undefined? why cant i pass as props?
 9. automatically logout?
+10. firebox css property????
 
 problem solved:
 1. create-react-app watch automatically
@@ -46,6 +46,7 @@ problem solved:
   MyHomePage = () => <HomePage name={this.state.name} />
   <Route exact path="/" render={this.MyHomePage} />
 8. favicon path: find the path of middleware directory
+9. must define isomorphic fetch for safari, ie, and firefox (import 'babel-polyfill';import fetch from 'isomorphic-fetch';)
 
 notice:
 1. module.exports = server;

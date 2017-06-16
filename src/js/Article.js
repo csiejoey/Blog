@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import 'babel-polyfill';
+import fetch from 'isomorphic-fetch';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
@@ -121,7 +123,6 @@ class Article extends Component {
         title,
         content,
         author,
-        time: new Date(),
         reply: r,
       }),
     })
@@ -133,6 +134,7 @@ class Article extends Component {
     //   reply: reply.concat(newReply),
     // }))
     .then(() => {
+      // window.location.href = `http://localhost:3000/article/${articleId}`;
       window.location.href = `https://joeyyee-blog.herokuapp.com/article/${articleId}`;
     })
     .catch(err => console.error(err));

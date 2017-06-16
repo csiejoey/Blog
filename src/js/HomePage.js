@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser';
+import 'babel-polyfill';
+import fetch from 'isomorphic-fetch';
 import { List, ListItem } from 'material-ui/List';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import Divider from 'material-ui/Divider';
